@@ -24,7 +24,7 @@ class Rubrique
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="Rubrique")
+     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="rubrique")
      */
     private $annonces;
 

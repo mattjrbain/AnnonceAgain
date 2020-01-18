@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="row justify-content-center mb-2">
+        <a href="javascript:history.go(-1)" type="button" class="btn btn-secondary shadow-sm">Page précédente</a>
+    </div>
+    <div class="row justify-content-center">
+{#        {% if message %}#}
+{#            <div class="col-md-10">#}
+{#                <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">#}
+{#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+{#                    <strong>{{ message }}</strong>#}
+{#                </div>#}
+
+{#                <script>#}
+{#                    $(".alert").alert();#}
+{#                </script>#}
+{#            </div>#}
+{#        {% endif %}#}
+        <div class="col-md-10">
+
+            <div class="card mb-3 shadow">
+                {% if annonce.images %}
+                    <div id="carouselExampleControls" class="carousel slide card-img-top"
+                         data-ride="carousel" style="overflow: hidden">
+
+                        {% for img in annonce.images %}
+                            {% if img %}
+                                <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %} ">
+                                    <img class="d-block w-100 card-img-top" src="{{ img.src }}" alt=""
+                                         style="max-height: 300px">
+                                </div>
+                            {% else %}
+                                <img src="" class=""
+                                     alt="Pas d'image" style="max-height: 500px">
+                            {% endif %}
+                        {% endfor %}
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                           data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                           data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    {#                        <img src="{{ annonce.imgSrc }}" class="card-img img-fluid" alt="..." style="max-height: 500px">#}
+                {% else %}
+                    <img src="" class="card-img img-fluid"
+                         alt="Pas d'image" style="max-height: 500px">
+                {% endif %}
+                {{ dump(annonce) }}
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">{{ annonce.title }}</h5>
+                    <h6>Rubrique: {{ annonce.rubrique.libelle }}</h6>
+                    <p class="card-text">{{ annonce.body }}</p>
+                    <p class="card-text"><small class="text-muted">Mise en ligne le {{ annonce.createdAt|date('d/m/Y') }},
+                            visité {#{{ annonce.visites }}#} fois</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

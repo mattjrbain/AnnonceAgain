@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    {#    <link rel="stylesheet" href="css/annonce.css">#}
+
+    <!-- FontAwesome Kit   -->
+    <script src="https://kit.fontawesome.com/8108dfc9fe.js" crossorigin="anonymous"></script>
+    {% block stylesheets %}
+
+        {#        <link rel="stylesheet" href="{{ asset('/css/annonce.css') }}">#}
+        {#        <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">#}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    {% embed 'header.html.twig' %}
+    {% endembed %}
+{% endblock %}
+<div class="container">
+
+    {% block body %}
+    {% endblock %}
+</div>
+{% block javascripts %}{% endblock %}
+</body>
 </html>
