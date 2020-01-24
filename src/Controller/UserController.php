@@ -10,6 +10,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,13 +44,15 @@ class UserController extends AbstractController
 
             $files = $request->files->get('annonce')['images'];
             foreach ($files as $file) {
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $image    = new Image();
-                $image->setSrc('img/' . $filename);
-                $annonce->addImage($image);
-                $manager->persist($image);
 
-                $file->move($uploads_directory, $filename);
+                if ($file instanceof UploadedFile) {
+                    $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                    $image    = new Image();
+                    $image->setSrc('img/' . $filename);
+                    $annonce->addImage($image);
+                    $manager->persist($image);
+                    $file->move($uploads_directory, $filename);
+                }
             }
             $manager->persist($annonce);
             $manager->flush();
