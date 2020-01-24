@@ -26,16 +26,15 @@ class UserController extends AbstractController
     public function createAnnonce(Request $request, EntityManagerInterface $manager)
     {
         $annonce = new Annonce();
-        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form    = $this->createForm(AnnonceType::class, $annonce);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             if (!$annonce->getId()) {//if $article has no id which means it is not in DB
                 $annonce->setCreatedAt(new DateTime());
-                $annonce->setLimitDate((new DateTime())->add(new DateInterval('P'. $this->getParameter
-                                                                              ('validityDays') .'D')));
+                $annonce->setLimitDate((new DateTime())->add(new DateInterval('P' . $this->getParameter('validityDays') . 'D')));
                 $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
                 $annonce->setAuthor($this->getUser());
             }
@@ -43,11 +42,10 @@ class UserController extends AbstractController
             $uploads_directory = $this->getParameter('uploads_directory');
 
             $files = $request->files->get('annonce')['images'];
-            dump($files, $uploads_directory, $request->files);
             foreach ($files as $file) {
                 $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $image = new Image();
-                $image->setSrc($this->getParameter('uploads_directory') .'/'. $filename);
+                $image    = new Image();
+                $image->setSrc('img/' . $filename);
                 $annonce->addImage($image);
                 $manager->persist($image);
 
@@ -58,7 +56,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('annonce', ['id' => $annonce->getId()]);
         }
 
-        return $this->render('user/createAnnonce.html.twig', [
+        return $this->render(
+            'user/createAnnonce.html.twig', [
             'form' => $form->createView(),
         ]);
     }

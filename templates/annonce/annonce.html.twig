@@ -29,9 +29,11 @@
                          data-ride="carousel" style="overflow: hidden">
 
                         {% for img in annonce.images %}
+{#                            {{ dump(img) }}#}
                             {% if img %}
                                 <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %} ">
-                                    <img class="d-block w-100 card-img-top" src="{{ img.src }}" alt=""
+{#                                    <img class="d-block w-100 card-img-top" src="img/{{ img.src }}" alt=""#}
+                                    <img class="d-block w-100 card-img-top" src="{{asset(img.src)}}" alt=""
                                          style="max-height: 300px">
                                 </div>
                             {% else %}
@@ -55,7 +57,7 @@
                     <img src="" class="card-img img-fluid"
                          alt="Pas d'image" style="max-height: 500px">
                 {% endif %}
-                {{ dump(annonce) }}
+{#                {{ dump(annonce) }}#}
                 <div class="card-body">
                     <h5 class="card-title text-capitalize">{{ annonce.title }}</h5>
                     <h6>Rubrique: {{ annonce.rubrique.libelle }}</h6>
