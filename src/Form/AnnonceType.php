@@ -27,7 +27,9 @@ class AnnonceType extends AbstractType
 //                'class' => Image::class,
                 'mapped'   => false,
                 'multiple' => true,
-                'required' => false
+                'required' => false,
+                'attr' => ['class' => 'file'],
+                'label_attr' => ['class' => 'invisible']
             ]);
     }
 

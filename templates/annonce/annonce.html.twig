@@ -24,6 +24,10 @@
         <div class="col-md-10">
 
             <div class="card mb-3 shadow">
+                {% for ima in annonce.images %}
+                    {{ dump(ima.src) }}
+                {% endfor %}
+                {{ dump(annonce.images) }}
                 {% if annonce.images %}
                     <div id="carouselExampleControls" class="carousel slide card-img-top"
                          data-ride="carousel" style="overflow: hidden">
