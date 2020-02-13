@@ -3,8 +3,12 @@
 {% block title %}Hello AnnonceController!{% endblock %}
 
 {% block body %}
-
-        <div class="row justify-content-center">
+{#{{ dump() }}#}
+    {{ form_start(form) }}
+    {{ form_row(form.libelle) }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_end(form) }}
+    <div class="row justify-content-center">
             <h2>Annonces "{{ rubrique.libelle }}"</h2>
         </div>
         <div class="row justify-content-center mb-2 sticky-top">
